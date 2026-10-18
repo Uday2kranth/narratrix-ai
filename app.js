@@ -32,25 +32,26 @@ const GROQ_MODELS_URL = 'https://api.groq.com/openai/v1/models';
  * tab or window is closed.
  */
 const KEY_SESSION_KEY = 'narratrix_api_key';
-const KEY_LEGACY_KEY  = 'storycraft_api_key';
 const STORAGE_MODEL   = 'narratrix_model';
 
-/** Default fallback model if user has not picked one */
-const DEFAULT_FALLBACK_MODEL = 'llama-3.3-70b-versatile';
+/** Default fallback model for story generation */
+const DEFAULT_FALLBACK_MODEL = 'qwen/qwen3.8-27b';
 
-/** Curated popular models available on Groq */
+/**
+ * Curated list of active story-generation models available on Groq.
+ * Audio models (Orpheus, Whisper) and moderation guards are excluded.
+ */
 const POPULAR_MODELS = [
-  { id: 'llama-3.3-70b-versatile', name: 'LLaMA 3.3 70B Versatile (Recommended)' },
+  { id: 'qwen/qwen3.8-27b',        name: 'Qwen 3.8 27B (Story & Creative Prose)' },
+  { id: 'openai/gpt-oss-120b',     name: 'GPT OSS 120B (High Capability Fiction)' },
+  { id: 'openai/gpt-oss-20b',      name: 'GPT OSS 20B (Fast Narrative)' },
+  { id: 'allan-2-7b',              name: 'Allan 2 7B (Lightweight Story)' },
+  { id: 'llama-3.3-70b-versatile', name: 'LLaMA 3.3 70B Versatile (Class Reference)' },
   { id: 'llama-3.1-8b-instant',    name: 'LLaMA 3.1 8B Instant (Fast)' },
-  { id: 'mixtral-8x7b-32768',      name: 'Mixtral 8x7B (High Quality Lore)' },
-  { id: 'qwen-2.5-32b',            name: 'Qwen 2.5 32B (Groq)' },
-  { id: 'deepseek-r1-distill-llama-70b', name: 'DeepSeek R1 Distill 70B' },
-  { id: 'deepseek-r1-distill-qwen-32b',  name: 'DeepSeek R1 Distill Qwen 32B' },
-  { id: 'gemma2-9b-it',            name: 'Gemma 2 9B (Google)' },
 ];
 
 /**
- * Returns a copy of curated Groq models for instant UI pre-population.
+ * Returns a copy of curated Groq story models for instant UI pre-population.
  * @returns {Array<{id: string, name: string}>}
  */
 function getPopularModels() {
@@ -62,9 +63,7 @@ function getPopularModels() {
  * @returns {string} The raw API key, or empty string if not set.
  */
 function getApiKey() {
-  return sessionStorage.getItem(KEY_SESSION_KEY) ||
-         sessionStorage.getItem(KEY_LEGACY_KEY) ||
-         '';
+  return sessionStorage.getItem(KEY_SESSION_KEY) || '';
 }
 
 /**
@@ -74,7 +73,6 @@ function getApiKey() {
 function saveApiKey(key) {
   const cleanKey = (key || '').trim();
   sessionStorage.setItem(KEY_SESSION_KEY, cleanKey);
-  sessionStorage.removeItem(KEY_LEGACY_KEY);
   return cleanKey;
 }
 
@@ -83,7 +81,6 @@ function saveApiKey(key) {
  */
 function removeApiKey() {
   sessionStorage.removeItem(KEY_SESSION_KEY);
-  sessionStorage.removeItem(KEY_LEGACY_KEY);
 }
 
 /**
@@ -121,7 +118,8 @@ function setSelectedModel(modelId) {
 
 /**
  * Fetches the list of active models directly from Groq's `/models` endpoint.
- * Falls back gracefully to curated models if offline or endpoint is blocked.
+ * Filters out audio (Orpheus, Whisper), moderation, and embedding models,
+ * keeping exclusively generative text & fiction models.
  *
  * @returns {Promise<Array<{id: string, name: string}>>}
  */
@@ -150,17 +148,30 @@ async function fetchGroqModels() {
     const data = await response.json();
     const rawList = Array.isArray(data.data) ? data.data : [];
 
-    // Filter for conversational/text LLMs
+    // Filter strictly for story/text generation models (exclude TTS, speech, whisper, guard, embed)
+    const nonStoryKeywords = ['whisper', 'guard', 'tts', 'orpheus', 'audio', 'voice', 'embed', 'speech', 'moderation'];
+    const friendlyMap = {
+      'qwen/qwen3.8-27b': 'Qwen 3.8 27B (Story & Creative Prose)',
+      'openai/gpt-oss-120b': 'GPT OSS 120B (High Capability Fiction)',
+      'openai/gpt-oss-20b': 'GPT OSS 20B (Fast Narrative)',
+      'allan-2-7b': 'Allan 2 7B (Lightweight Story)',
+      'llama-3.3-70b-versatile': 'LLaMA 3.3 70B Versatile (Class Reference)',
+      'llama-3.1-8b-instant': 'LLaMA 3.1 8B Instant (Fast)',
+    };
+
     const filtered = rawList
-      .filter(m => !m.id.includes('whisper') && !m.id.includes('guard') && !m.id.includes('tts') && !m.id.includes('distil-whisper'))
-      .map(m => ({ id: m.id, name: m.id }))
+      .filter(m => !nonStoryKeywords.some(kw => m.id.toLowerCase().includes(kw)))
+      .map(m => ({
+        id: m.id,
+        name: friendlyMap[m.id] || m.id,
+      }))
       .sort((a, b) => {
-        if (a.id.includes('llama-3.3')) return -1;
-        if (b.id.includes('llama-3.3')) return 1;
-        if (a.id.includes('llama-3.1')) return -1;
-        if (b.id.includes('llama-3.1')) return 1;
         if (a.id.includes('qwen')) return -1;
         if (b.id.includes('qwen')) return 1;
+        if (a.id.includes('gpt-oss-120b')) return -1;
+        if (b.id.includes('gpt-oss-120b')) return 1;
+        if (a.id.includes('llama-3.3')) return -1;
+        if (b.id.includes('llama-3.3')) return 1;
         return a.id.localeCompare(b.id);
       });
 

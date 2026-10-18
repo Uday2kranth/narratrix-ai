@@ -88,8 +88,13 @@
       <div class="header__right">
         <div class="model-selector" id="modelSelectorWrap">
           <label class="model-selector__label" for="modelSelect">Model</label>
-          <select class="model-selector__select" id="modelSelect" disabled>
-            <option value="">Set API Key first</option>
+          <select class="model-selector__select" id="modelSelect">
+            <option value="qwen/qwen3.8-27b" selected>Qwen 3.8 27B (Story & Creative Prose)</option>
+            <option value="openai/gpt-oss-120b">GPT OSS 120B (High Capability Fiction)</option>
+            <option value="openai/gpt-oss-20b">GPT OSS 20B (Fast Narrative)</option>
+            <option value="allan-2-7b">Allan 2 7B (Lightweight Story)</option>
+            <option value="llama-3.3-70b-versatile">LLaMA 3.3 70B Versatile (Class Reference)</option>
+            <option value="llama-3.1-8b-instant">LLaMA 3.1 8B Instant (Fast)</option>
           </select>
         </div>
         <div class="header__status" id="apiStatus">

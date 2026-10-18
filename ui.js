@@ -1398,10 +1398,12 @@
     const initialModels = (window.NarratrixAI && window.NarratrixAI.getPopularModels)
       ? window.NarratrixAI.getPopularModels()
       : [
-          { id: 'llama-3.3-70b-versatile', name: 'LLaMA 3.3 70B (Recommended)' },
-          { id: 'llama-3.1-8b-instant',    name: 'LLaMA 3.1 8B Instant' },
-          { id: 'mixtral-8x7b-32768',      name: 'Mixtral 8x7B' },
-          { id: 'qwen-2.5-32b',            name: 'Qwen 2.5 32B' },
+          { id: 'qwen/qwen3.8-27b',        name: 'Qwen 3.8 27B (Story & Creative Prose)' },
+          { id: 'openai/gpt-oss-120b',     name: 'GPT OSS 120B (High Capability Fiction)' },
+          { id: 'openai/gpt-oss-20b',      name: 'GPT OSS 20B (Fast Narrative)' },
+          { id: 'allan-2-7b',              name: 'Allan 2 7B (Lightweight Story)' },
+          { id: 'llama-3.3-70b-versatile', name: 'LLaMA 3.3 70B Versatile (Class Reference)' },
+          { id: 'llama-3.1-8b-instant',    name: 'LLaMA 3.1 8B Instant (Fast)' },
         ];
     renderModelSelectors(initialModels);
 
