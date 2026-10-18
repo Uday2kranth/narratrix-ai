@@ -20,13 +20,13 @@
         <span class="sidebar__logo">⬡</span>
         <span class="sidebar__brand-text">Narratrix</span>
       </div>
-      <button class="icon-btn" id="sidebarCollapse" aria-label="Collapse sidebar">
-        <i class="lucide lucide-panel-left-close"></i>
+      <button class="icon-btn" id="sidebarCollapse" aria-label="Collapse sidebar" title="Collapse sidebar">
+        <span class="btn-glyph">◀</span>
       </button>
     </div>
 
     <button class="sidebar__new-btn" id="newSessionBtn">
-      <i class="lucide lucide-plus"></i>
+      <span class="btn-glyph">＋</span>
       <span>New Session</span>
     </button>
 
@@ -38,16 +38,16 @@
     </nav>
 
     <div class="sidebar__footer">
-      <button class="sidebar__footer-btn" id="themeToggle">
-        <i class="lucide lucide-moon" id="themeIcon"></i>
+      <button class="sidebar__footer-btn" id="themeToggle" aria-label="Toggle theme">
+        <span class="btn-glyph" id="themeGlyph">🌙</span>
         <span id="themeLabel">Dark Mode</span>
       </button>
-      <button class="sidebar__footer-btn" id="exportHistoryBtn">
-        <i class="lucide lucide-download"></i>
+      <button class="sidebar__footer-btn" id="exportHistoryBtn" aria-label="Export history">
+        <span class="btn-glyph">📥</span>
         <span>Export All (JSON)</span>
       </button>
-      <button class="sidebar__footer-btn" id="clearHistoryBtn">
-        <i class="lucide lucide-trash-2"></i>
+      <button class="sidebar__footer-btn" id="clearHistoryBtn" aria-label="Clear history">
+        <span class="btn-glyph">🗑️</span>
         <span>Clear History</span>
       </button>
     </div>
@@ -63,7 +63,11 @@
     <header class="header">
       <div class="header__left">
         <button class="icon-btn header__hamburger" id="sidebarOpen" aria-label="Toggle sidebar" title="Toggle sidebar">
-          <i class="lucide lucide-menu"></i>
+          <span class="hamburger-bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
         </button>
         <div class="header__brand-inline">
           <span class="header__logo-sm">⬡</span>
@@ -74,11 +78,11 @@
       <div class="header__center">
         <div class="mode-switcher" id="modeSwitcher">
           <button class="mode-btn mode-btn--active" data-mode="story" id="modeStory">
-            <i class="lucide lucide-book-open"></i>
+            <span class="btn-glyph">📖</span>
             <span>Story Mode</span>
           </button>
           <button class="mode-btn" data-mode="chat" id="modeChat">
-            <i class="lucide lucide-message-square"></i>
+            <span class="btn-glyph">💬</span>
             <span>Chat Mode</span>
           </button>
           <div class="mode-slider" id="modeSlider"></div>
@@ -102,7 +106,7 @@
           <span class="status-text" id="statusText">No Key</span>
         </div>
         <button class="btn btn--ghost" id="btnApiKey" aria-label="Configure API Key">
-          <i class="lucide lucide-key-round"></i>
+          <span class="btn-glyph">🔑</span>
           <span class="btn__label">API Key</span>
         </button>
       </div>
@@ -127,7 +131,7 @@
             <div class="preset-header-row">
               <div class="section-label">Story Presets & Templates</div>
               <button class="preset-clear-btn" id="presetClearBtn" type="button" style="display: none;">
-                <i class="lucide lucide-rotate-ccw"></i>
+                <span class="btn-glyph">↺</span>
                 <span>Reset to Custom</span>
               </button>
             </div>
@@ -138,7 +142,7 @@
                   <span class="preset-select-btn__title" id="presetSelectedTitle">Choose a Preset Template (Optional)</span>
                   <span class="preset-select-btn__desc" id="presetSelectedDesc">Explore bedtime stories, satire, What-If divergence, Twilight Zone parables…</span>
                 </div>
-                <i class="lucide lucide-chevron-down preset-select-btn__arrow" id="presetArrow"></i>
+                <span class="preset-select-btn__arrow" id="presetArrow">▼</span>
               </div>
               <div class="preset-dropdown-menu" id="presetDropdownMenu" role="listbox">
                 <!-- Populated with categorized preset groups by JS -->
@@ -159,7 +163,7 @@
                     <input type="text" class="combobox__input" id="genreInput"
                            placeholder="Select or type a genre…" autocomplete="off" />
                     <button class="combobox__toggle" id="genreToggle" type="button" aria-label="Toggle genre list">
-                      <i class="lucide lucide-chevron-down"></i>
+                      <span class="btn-glyph" style="font-size: 0.75rem;">▼</span>
                     </button>
                   </div>
                   <div class="combobox__dropdown" id="genreDropdown">
@@ -193,11 +197,11 @@
                   <label class="field__label">Cast of Characters</label>
                   <div class="field-header-actions">
                     <button type="button" class="btn btn--ghost btn--small clear-sub-btn" id="clearCharactersBtn" title="Clear all characters">
-                      <i class="lucide lucide-trash-2"></i>
+                      <span class="btn-glyph">🗑️</span>
                       <span>Clear</span>
                     </button>
                     <button type="button" class="btn btn--ghost btn--small add-sub-btn" id="addCharacterBtn">
-                      <i class="lucide lucide-user-plus"></i>
+                      <span class="btn-glyph">＋</span>
                       <span>Add Character</span>
                     </button>
                   </div>
@@ -213,11 +217,11 @@
                   <label class="field__label">Plot Twists & Turning Points</label>
                   <div class="field-header-actions">
                     <button type="button" class="btn btn--ghost btn--small clear-sub-btn" id="clearTwistsBtn" title="Clear all plot twists">
-                      <i class="lucide lucide-trash-2"></i>
+                      <span class="btn-glyph">🗑️</span>
                       <span>Clear</span>
                     </button>
                     <button type="button" class="btn btn--ghost btn--small add-sub-btn" id="addTwistBtn">
-                      <i class="lucide lucide-plus"></i>
+                      <span class="btn-glyph">＋</span>
                       <span>Add Twist / Beat</span>
                     </button>
                   </div>
@@ -249,8 +253,8 @@
           <!-- Generate Button -->
           <div class="config-actions">
             <button class="btn btn--primary btn--lg" id="generateStoryBtn">
-              <i class="lucide lucide-sparkles"></i>
-              Generate Story
+              <span class="btn-glyph">✨</span>
+              <span>Generate Story</span>
             </button>
           </div>
 
@@ -265,15 +269,17 @@
           <div class="result-prompt-card" id="resultPromptCard">
             <div class="result-prompt-card__header">
               <div class="result-prompt-card__title">
-                <i class="lucide lucide-file-text"></i>
+                <span class="btn-glyph">📄</span>
                 Active Parameters
               </div>
               <div class="result-prompt-card__actions">
                 <button class="btn btn--ghost btn--small" id="editPromptBtn">
-                  <i class="lucide lucide-pencil"></i> Edit Parameters
+                  <span class="btn-glyph">✏️</span>
+                  <span>Edit Parameters</span>
                 </button>
                 <button class="btn btn--ghost btn--small" id="regenerateBtn">
-                  <i class="lucide lucide-refresh-cw"></i> Regenerate
+                  <span class="btn-glyph">🔄</span>
+                  <span>Regenerate</span>
                 </button>
               </div>
             </div>
@@ -296,14 +302,17 @@
           <div class="result-actions">
             <div class="result-actions__left">
               <button class="btn btn--ghost" id="copyStoryBtn">
-                <i class="lucide lucide-copy"></i> Copy Story
+                <span class="btn-glyph">📋</span>
+                <span>Copy Story</span>
               </button>
               <button class="btn btn--ghost" id="downloadStoryBtn">
-                <i class="lucide lucide-download"></i> Download (.md)
+                <span class="btn-glyph">📥</span>
+                <span>Download (.md)</span>
               </button>
             </div>
             <button class="btn btn--primary" id="newStoryBtn">
-              <i class="lucide lucide-plus"></i> New Story
+              <span class="btn-glyph">＋</span>
+              <span>New Story</span>
             </button>
           </div>
 
@@ -335,7 +344,7 @@
                       placeholder="Ask about worldbuilding, character traits, scene tension…"
                       rows="1"></textarea>
             <button class="chat-input-bar__send" id="chatSendBtn" type="button" aria-label="Send">
-              <i class="lucide lucide-arrow-up"></i>
+              <span class="btn-glyph">▲</span>
             </button>
           </div>
           <p class="chat-input-bar__hint">
@@ -361,11 +370,11 @@
     <div class="modal" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
       <div class="modal__header">
         <h2 class="modal__title" id="modalTitle">
-          <i class="lucide lucide-key-round"></i>
+          <span class="btn-glyph">🔑</span>
           API Configuration
         </h2>
         <button class="icon-btn" id="modalClose" aria-label="Close modal">
-          <i class="lucide lucide-x"></i>
+          <span class="btn-glyph">✕</span>
         </button>
       </div>
       <div class="modal__body">
@@ -380,7 +389,7 @@
                  placeholder="gsk_xxxxxxxxxxxxxxxxxxxxxxxx"
                  spellcheck="false" autocomplete="off" />
           <button class="icon-btn" id="toggleKeyVis" type="button" aria-label="Toggle visibility">
-            <i class="lucide lucide-eye"></i>
+            <span class="btn-glyph" id="keyVisGlyph">👁️</span>
           </button>
         </div>
 
@@ -388,7 +397,7 @@
           <div class="modal__model-header">
             <span class="field__label">Available Models</span>
             <button class="btn btn--ghost btn--small" id="fetchModelsBtn" type="button">
-              <i class="lucide lucide-refresh-cw"></i> Fetch
+              <span class="btn-glyph">🔄</span> Sync with Groq
             </button>
           </div>
           <div class="modal__model-list" id="modalModelList">

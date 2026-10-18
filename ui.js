@@ -280,7 +280,7 @@
     banner.style.display = 'block';
     banner.innerHTML = `
       <div class="error-banner__header">
-        <i class="lucide lucide-alert-triangle"></i>
+        <span class="btn-glyph">⚠️</span>
         <span>Story Generation Failed</span>
       </div>
       <div class="error-banner__msg">${escapeHtml(message)}</div>
@@ -433,8 +433,12 @@
     document.body.setAttribute('data-theme', theme);
     localStorage.setItem(STORAGE_THEME, theme);
     const isDark = theme === 'dark';
-    themeIcon.className = isDark ? 'lucide lucide-moon' : 'lucide lucide-sun';
-    themeLabel.textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    if (themeIcon) {
+      themeIcon.textContent = isDark ? '🌙' : '☀️';
+    }
+    if (themeLabel) {
+      themeLabel.textContent = isDark ? 'Dark Mode' : 'Light Mode';
+    }
   }
 
   function toggleTheme() {
@@ -478,7 +482,7 @@
   }
 
   async function populateModalModels() {
-    modalModelList.innerHTML = '<p class="text-muted"><i class="lucide lucide-loader"></i> Fetching models from Groq…</p>';
+    modalModelList.innerHTML = '<p class="text-muted"><span class="btn-glyph">🔄</span> Fetching models from Groq…</p>';
     try {
       const models = await window.NarratrixAI.fetchGroqModels();
       renderModelSelectors(models);
@@ -522,7 +526,10 @@
   toggleKeyVis.addEventListener('click', () => {
     const isPw = apiKeyInput.type === 'password';
     apiKeyInput.type = isPw ? 'text' : 'password';
-    toggleKeyVis.querySelector('i').className = isPw ? 'lucide lucide-eye-off' : 'lucide lucide-eye';
+    const glyph = $('#keyVisGlyph', toggleKeyVis) || toggleKeyVis.querySelector('.btn-glyph') || toggleKeyVis;
+    if (glyph) {
+      glyph.textContent = isPw ? '🙈' : '👁️';
+    }
   });
 
   btnSaveKey.addEventListener('click', async () => {
@@ -579,10 +586,10 @@
         placeholder.id = 'charEmptyState';
         placeholder.className = 'empty-roster-placeholder';
         placeholder.innerHTML = `
-          <i class="lucide lucide-users"></i>
+          <span class="btn-glyph" style="font-size: 1.5rem;">👥</span>
           <span>No custom characters defined. The AI will freely invent an ensemble based on your prompt.</span>
           <button type="button" class="btn btn--ghost btn--small" id="charAddFirstBtn">
-            <i class="lucide lucide-plus"></i> Add Character
+            <span class="btn-glyph">＋</span> Add Character
           </button>
         `;
         charactersContainer.appendChild(placeholder);
@@ -673,10 +680,10 @@
         placeholder.id = 'twistEmptyState';
         placeholder.className = 'empty-roster-placeholder';
         placeholder.innerHTML = `
-          <i class="lucide lucide-sparkles"></i>
+          <span class="btn-glyph" style="font-size: 1.5rem;">✨</span>
           <span>No plot twists defined. The narrative will flow organically from your scene prompt.</span>
           <button type="button" class="btn btn--ghost btn--small" id="twistAddFirstBtn">
-            <i class="lucide lucide-plus"></i> Add Twist / Beat
+            <span class="btn-glyph">＋</span> Add Twist / Beat
           </button>
         `;
         twistsContainer.appendChild(placeholder);
@@ -1002,9 +1009,9 @@
   copyStoryBtn.addEventListener('click', () => {
     if (!state.lastStoryRaw) return;
     navigator.clipboard.writeText(state.lastStoryRaw).then(() => {
-      copyStoryBtn.innerHTML = '<i class="lucide lucide-check"></i> Copied';
+      copyStoryBtn.innerHTML = '<span class="btn-glyph">✓</span> Copied';
       setTimeout(() => {
-        copyStoryBtn.innerHTML = '<i class="lucide lucide-copy"></i> Copy Story';
+        copyStoryBtn.innerHTML = '<span class="btn-glyph">📋</span> Copy Story';
       }, 2000);
     }).catch(() => showToast('Failed to copy.', 'error'));
   });
