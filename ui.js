@@ -378,15 +378,17 @@
 
   function collapseDesktopSidebar() {
     sidebar.classList.add('sidebar--collapsed');
+    document.body.classList.add('sidebar-collapsed');
     localStorage.setItem(STORAGE_SIDEBAR_COLLAPSED, 'true');
-    sidebarOpen.setAttribute('title', 'Expand sidebar');
+    sidebarOpen.setAttribute('title', 'Expand sidebar (Ctrl+B)');
     sidebarOpen.setAttribute('aria-expanded', 'false');
   }
 
   function expandDesktopSidebar() {
     sidebar.classList.remove('sidebar--collapsed');
+    document.body.classList.remove('sidebar-collapsed');
     localStorage.setItem(STORAGE_SIDEBAR_COLLAPSED, 'false');
-    sidebarOpen.setAttribute('title', 'Collapse sidebar');
+    sidebarOpen.setAttribute('title', 'Collapse sidebar (Ctrl+B)');
     sidebarOpen.setAttribute('aria-expanded', 'true');
   }
 
@@ -404,6 +406,8 @@
     const saved = localStorage.getItem(STORAGE_SIDEBAR_COLLAPSED);
     if (!isMobile() && saved === 'true') {
       collapseDesktopSidebar();
+    } else {
+      document.body.classList.remove('sidebar-collapsed');
     }
   }
 
@@ -422,6 +426,15 @@
   });
 
   sidebarOverlay.addEventListener('click', closeMobileSidebar);
+
+  // Global Keyboard Shortcut: Ctrl+B / Cmd+B to toggle sidebar
+  window.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'b') {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+      e.preventDefault();
+      toggleSidebar();
+    }
+  });
 
 
   // ══════════════════════════════════════════════

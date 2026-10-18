@@ -453,6 +453,39 @@ body {
   transform: translateY(0);
 }
 
+/* Modern Sidebar Panel Vector Icons */
+.sidebar-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  stroke: currentColor;
+  flex-shrink: 0;
+  transition: transform var(--dur) var(--ease), stroke var(--dur) var(--ease);
+}
+.icon-btn:hover .sidebar-icon {
+  stroke: var(--accent);
+}
+
+/* On Desktop: Hide the header button when sidebar is open.
+   Only reveal it when the sidebar is collapsed. */
+@media (min-width: 769px) {
+  .header__hamburger {
+    display: none !important;
+  }
+  body.sidebar-collapsed .header__hamburger,
+  body:has(#sidebar.sidebar--collapsed) .header__hamburger {
+    display: inline-flex !important;
+    animation: viewFadeIn 180ms var(--ease);
+  }
+}
+
+/* On Mobile: Header button opens the sliding drawer */
+@media (max-width: 768px) {
+  .header__hamburger {
+    display: inline-flex !important;
+  }
+}
+
 .header__brand-inline {
   display: flex;
   align-items: center;
