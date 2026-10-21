@@ -107,6 +107,23 @@
   const btnSaveKey         = $('#btnSaveKey');
   const toastContainer     = $('#toastContainer');
 
+  // Multimodal Studio Expansions & Coming Soon Modal
+  const btnAudioStory         = $('#btnAudioStory');
+  const btnVideoStory         = $('#btnVideoStory');
+  const comingSoonOverlay     = $('#comingSoonOverlay');
+  const comingSoonClose       = $('#comingSoonClose');
+  const comingSoonDismiss     = $('#btnComingSoonDismiss');
+  const comingSoonIcon        = $('#comingSoonIcon');
+  const comingSoonHeading     = $('#comingSoonHeading');
+  const comingSoonHeadline    = $('#comingSoonHeadline');
+  const comingSoonDesc        = $('#comingSoonDesc');
+  const pipelineDoneTitle     = $('#pipelineDoneTitle');
+  const pipelineDoneDesc      = $('#pipelineDoneDesc');
+  const pipelineActiveTitle   = $('#pipelineActiveTitle');
+  const pipelineActiveDesc    = $('#pipelineActiveDesc');
+  const pipelinePendingTitle  = $('#pipelinePendingTitle');
+  const pipelinePendingDesc   = $('#pipelinePendingDesc');
+
 
   // ── Safe accessors for presets.js data ──
   const getRoles = () => (typeof window !== 'undefined' && window.CHARACTER_ROLES) || (typeof CHARACTER_ROLES !== 'undefined' ? CHARACTER_ROLES : []);
@@ -583,6 +600,101 @@
   modelSelect.addEventListener('change', () => {
     window.NarratrixAI.setSelectedModel(modelSelect.value);
     showToast(`Model set to ${modelSelect.value}`, 'info');
+  });
+
+
+  // ══════════════════════════════════════════════
+  // MULTIMODAL EXPANSIONS & COMING SOON MODAL
+  // ══════════════════════════════════════════════
+  const EXPANSION_DETAILS = {
+    audio: {
+      icon: '🎧',
+      heading: 'Generate Audio Story',
+      headline: 'Next-Gen Multi-Speaker Neural Audio Drama',
+      desc: 'Transforms your written prose into broadcast-grade audio with distinct voice casting for each character, expressive cadence, and adaptive ambient soundscapes.',
+      doneTitle: 'Story Prose & Dialogue Parsing',
+      doneDesc: 'Analyzes narrator exposition, character dialogue tags, and emotional polarity from your generated scene.',
+      activeTitle: 'Neural Voice Actor Assignment',
+      activeDesc: 'Pairing character roles (Protagonist, Antagonist, Supporting) with specialized zero-shot voice latents via low-latency inference.',
+      pendingTitle: '48kHz Acoustic Mastering & Atmos Foley',
+      pendingDesc: 'Mastering dynamic multi-track audio with subtle background room tone, Foley sound effects, and spatial mixing.',
+      toastMsg: 'Audio Story Narration is in active development for Narratrix Pro!'
+    },
+    video: {
+      icon: '🎬',
+      heading: 'Generate Video Narration',
+      headline: 'Scene-by-Scene Cinematic Storyboard Visualizer',
+      desc: 'Converts your scene into an episodic storyboard video featuring synchronized voiceover narration, atmospheric camera movements, dynamic pacing, and typography.',
+      doneTitle: 'Cinematic Beat & Scene Segmentation',
+      doneDesc: 'Decomposes narrative paragraphs into shot lists with environment, mood, and camera angle metadata.',
+      activeTitle: 'Generative Storyboard & Keyframe Synthesis',
+      activeDesc: 'Generating cohesive scene frames and camera motion vectors aligned with your selected story genre.',
+      pendingTitle: 'Timeline Assembly & Synchronized Video Export',
+      pendingDesc: 'Stitching video keyframes with timed subtitle typography, ambient sound design, and master MP4 export.',
+      toastMsg: 'Video Narration Generator is in active development for Narratrix Pro!'
+    }
+  };
+
+  function openComingSoonModal(type = 'audio') {
+    const data = EXPANSION_DETAILS[type] || EXPANSION_DETAILS.audio;
+    if (comingSoonIcon) comingSoonIcon.textContent = data.icon;
+    if (comingSoonHeading) comingSoonHeading.textContent = data.heading;
+    if (comingSoonHeadline) comingSoonHeadline.textContent = data.headline;
+    if (comingSoonDesc) comingSoonDesc.textContent = data.desc;
+
+    if (pipelineDoneTitle) pipelineDoneTitle.textContent = data.doneTitle;
+    if (pipelineDoneDesc) pipelineDoneDesc.textContent = data.doneDesc;
+    if (pipelineActiveTitle) pipelineActiveTitle.textContent = data.activeTitle;
+    if (pipelineActiveDesc) pipelineActiveDesc.textContent = data.activeDesc;
+    if (pipelinePendingTitle) pipelinePendingTitle.textContent = data.pendingTitle;
+    if (pipelinePendingDesc) pipelinePendingDesc.textContent = data.pendingDesc;
+
+    if (comingSoonOverlay) {
+      comingSoonOverlay.classList.add('modal-overlay--visible');
+    }
+    showToast(data.toastMsg, 'info', 4000);
+  }
+
+  function closeComingSoonModal() {
+    if (comingSoonOverlay) {
+      comingSoonOverlay.classList.remove('modal-overlay--visible');
+    }
+  }
+
+  if (btnAudioStory) {
+    btnAudioStory.addEventListener('click', () => openComingSoonModal('audio'));
+    btnAudioStory.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openComingSoonModal('audio');
+      }
+    });
+  }
+
+  if (btnVideoStory) {
+    btnVideoStory.addEventListener('click', () => openComingSoonModal('video'));
+    btnVideoStory.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openComingSoonModal('video');
+      }
+    });
+  }
+
+  if (comingSoonClose) comingSoonClose.addEventListener('click', closeComingSoonModal);
+  if (comingSoonDismiss) comingSoonDismiss.addEventListener('click', closeComingSoonModal);
+  if (comingSoonOverlay) {
+    comingSoonOverlay.addEventListener('click', (e) => {
+      if (e.target === comingSoonOverlay) closeComingSoonModal();
+    });
+  }
+
+  // Global Escape key handler for dialogs
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeApiKeyModal();
+      closeComingSoonModal();
+    }
   });
 
 

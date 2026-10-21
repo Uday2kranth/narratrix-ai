@@ -302,6 +302,72 @@
             <!-- Rendered markdown -->
           </div>
 
+          <!-- ────── Multimodal Studio Expansions (Coming Soon) ────── -->
+          <section class="story-expansions" id="storyExpansions" aria-labelledby="storyExpansionsTitle">
+            <div class="story-expansions__header">
+              <div class="story-expansions__title-wrap">
+                <span class="btn-glyph story-expansions__spark">⚡</span>
+                <h3 class="story-expansions__title" id="storyExpansionsTitle">Studio Multimodal Expansions</h3>
+              </div>
+              <span class="story-expansions__tag">Coming Soon</span>
+            </div>
+            <p class="story-expansions__subtitle">
+              Convert your generated narrative into immersive voice performance and cinematic video formats.
+            </p>
+
+            <div class="story-expansions__grid">
+              <!-- Audio Story Expansion Card -->
+              <div class="expansion-card" id="btnAudioStory" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Generate Audio Story (Coming Soon)">
+                <div class="expansion-card__inner">
+                  <div class="expansion-card__icon-box expansion-card__icon-box--audio">
+                    <span class="expansion-card__icon">🎧</span>
+                  </div>
+                  <div class="expansion-card__body">
+                    <div class="expansion-card__headline">
+                      <h4 class="expansion-card__name">Generate Audio Story</h4>
+                      <span class="expansion-pill">In Development</span>
+                    </div>
+                    <p class="expansion-card__desc">
+                      Multi-speaker voice acting with dynamic ambient soundscapes and emotive pacing tailored to your story.
+                    </p>
+                    <div class="expansion-card__footer">
+                      <span class="expansion-card__action">
+                        <span>Explore Pipeline</span>
+                        <span class="expansion-card__arrow">→</span>
+                      </span>
+                      <span class="expansion-card__meta">Groq LPU • Neural Audio</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Video Narration Expansion Card -->
+              <div class="expansion-card" id="btnVideoStory" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Generate Video Narration (Coming Soon)">
+                <div class="expansion-card__inner">
+                  <div class="expansion-card__icon-box expansion-card__icon-box--video">
+                    <span class="expansion-card__icon">🎬</span>
+                  </div>
+                  <div class="expansion-card__body">
+                    <div class="expansion-card__headline">
+                      <h4 class="expansion-card__name">Generate Video Narration</h4>
+                      <span class="expansion-pill">In Development</span>
+                    </div>
+                    <p class="expansion-card__desc">
+                      Cinematic scene-by-scene storyboard visualizer with synchronized voiceover, subtitle timing, and camera motions.
+                    </p>
+                    <div class="expansion-card__footer">
+                      <span class="expansion-card__action">
+                        <span>Explore Pipeline</span>
+                        <span class="expansion-card__arrow">→</span>
+                      </span>
+                      <span class="expansion-card__meta">Storyboard • Generative Video</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
           <!-- Result Actions -->
           <div class="result-actions">
             <div class="result-actions__left">
@@ -412,6 +478,86 @@
         <div class="modal__actions">
           <button class="btn btn--secondary" id="btnRemoveKey" type="button">Remove Key</button>
           <button class="btn btn--primary" id="btnSaveKey" type="button">Save & Connect</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ COMING SOON MODAL ═══════════════ -->
+  <div class="modal-overlay" id="comingSoonOverlay">
+    <div class="modal modal--coming-soon" role="dialog" aria-labelledby="comingSoonHeading" aria-modal="true">
+      <div class="modal__header">
+        <h2 class="modal__title">
+          <span class="btn-glyph" id="comingSoonIcon">🎧</span>
+          <span id="comingSoonHeading">Generate Audio Story</span>
+        </h2>
+        <button class="icon-btn" id="comingSoonClose" aria-label="Close modal">
+          <span class="btn-glyph">✕</span>
+        </button>
+      </div>
+      <div class="modal__body">
+        <div class="coming-soon-banner">
+          <div class="coming-soon-banner__badge">
+            <span class="coming-soon-pulsar"></span>
+            <span id="comingSoonBadgeText">In Active Pipeline Development</span>
+          </div>
+          <h3 class="coming-soon-banner__headline" id="comingSoonHeadline">
+            Next-Gen Multi-Speaker Audio Synthesis
+          </h3>
+          <p class="coming-soon-banner__desc" id="comingSoonDesc">
+            Transforming prose into studio-grade audio drama with distinct character voices, emotional pacing, and immersive ambient acoustics.
+          </p>
+        </div>
+
+        <!-- Technical Pipeline / Spine Roadmap -->
+        <div class="feature-pipeline">
+          <div class="feature-pipeline__title">
+            <span class="btn-glyph">⚙️</span>
+            <span>Production Pipeline Architecture</span>
+          </div>
+          <div class="feature-pipeline__steps">
+            <div class="pipeline-step pipeline-step--done">
+              <span class="pipeline-step__status">✓</span>
+              <div class="pipeline-step__content">
+                <strong id="pipelineDoneTitle">Narrative & Dialogue Parsing</strong>
+                <span id="pipelineDoneDesc">Extracts dialogue tags, speaker emotion, and scene ambiance directly from your generated story.</span>
+              </div>
+            </div>
+            <div class="pipeline-step pipeline-step--active">
+              <span class="pipeline-step__status">⏳</span>
+              <div class="pipeline-step__content">
+                <strong id="pipelineActiveTitle">Neural Voice Actor Assignment</strong>
+                <span id="pipelineActiveDesc">Pairing character roles (Protagonist, Antagonist, Narrator) with specialized zero-shot voice latents.</span>
+              </div>
+            </div>
+            <div class="pipeline-step pipeline-step--pending">
+              <span class="pipeline-step__status">○</span>
+              <div class="pipeline-step__content">
+                <strong id="pipelinePendingTitle">Real-Time Acoustic Mixing & Export</strong>
+                <span id="pipelinePendingDesc">Mastering 48kHz audio track with background soundscape and master compression for instant playback.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Roadmap Status & Release Schedule (Pure Display - No Inputs) -->
+        <div class="roadmap-meta-card">
+          <div class="roadmap-meta-item">
+            <span class="roadmap-meta-label">Target Release</span>
+            <span class="roadmap-meta-val roadmap-meta-val--accent">Date to be declared</span>
+          </div>
+          <div class="roadmap-meta-item">
+            <span class="roadmap-meta-label">Pipeline Status</span>
+            <span class="roadmap-meta-val">Pre-Production Alpha</span>
+          </div>
+          <div class="roadmap-meta-item">
+            <span class="roadmap-meta-label">Architecture</span>
+            <span class="roadmap-meta-val">Groq LPU Engine</span>
+          </div>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--primary" id="btnComingSoonDismiss" type="button">Understood • Back to Story</button>
         </div>
       </div>
     </div>
