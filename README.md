@@ -82,7 +82,8 @@ git push -u origin main
 
 Your app will be live at:
 ```
-https://<your-username>.github.io/narratrix-ai/
+https://uday2kranth.github.io/narratrix-ai/
+
 ```
 
 ---
