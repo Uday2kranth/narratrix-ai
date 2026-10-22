@@ -993,8 +993,8 @@
     state.activePresetId = null;
 
     presetSelectedIcon.textContent = '✨';
-    presetSelectedTitle.textContent = 'Choose a Preset Template (Optional)';
-    presetSelectedDesc.textContent = 'Explore bedtime stories, satire, What-If divergence, Twilight Zone parables…';
+    presetSelectedTitle.textContent = 'Select a Ready Story Demo (Sci-Fi, Mystery, Bedtime...)';
+    presetSelectedDesc.textContent = '1-click stories: Bedtime tales, sci-fi mysteries, dark fantasy, thrillers & parables…';
     presetSelectBtn.classList.remove('preset-select-btn--active');
     presetClearBtn.style.display = 'none';
 
